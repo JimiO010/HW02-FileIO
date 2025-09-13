@@ -11,10 +11,19 @@
 static inline int char_to_index(char character) {
   // turn both [a-z] and [A-Z] into the index used to increment their spots in
   // the array.
+  if (!isalpha((unsigned char)character)) {
+    return -1;
+  }
+  char lower = (char)tolower((unsigned char)character);
+  return (int)(lower - 'a');  // 'a' -> 0, ..., 'z' -> 25
 }
 
 static inline char index_to_char(int index) {
   // turn the index into [a-z] or ' '
+  if (index == ALPHABET_SIZE) {  // special slot for no partner
+    return ' ';
+  }
+  return (char)('a' + index);
 }
 
 /* END STUDENT ANSWER HELPER FUNCTIONS */
